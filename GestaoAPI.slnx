@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/Itens de Solução/">
+    <File Path="GestaoAPI/.gitignore" />
+  </Folder>
+  <Project Path="GestaoAPI/GestaoAPI.csproj" />
+</Solution>
