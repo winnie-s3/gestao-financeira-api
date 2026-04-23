@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+  <head>
+    <title>Home</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS v5.3.8 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <header>
+      <!-- place navbar here -->
+    </header>
+    <main>
+      <div class="p-3">
+        <h2 class="text-center mb-5">List of Expenses</h2>
+        <div
+          class="table-responsive"
+        >
+          <table
+            class="table table-primary"
+          >
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Description</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+            <tfoot id="tableFoot">
+            </tfoot>
+          </table>
+        </div>
+        
+      </div>
+    </main>
+    <footer>
+      <!-- place footer here -->
+    </footer>
+    <!-- Bootstrap JavaScript Bundle (includes Popper) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      function loadTableData(data) {
+        const tableBody = document.getElementById("tableBody");
+        const tableFoot = document.getElementById("tableFoot");
+
+        let total = 0;
+
+        data.forEach(expense => {
+          let row = tableBody.insertRow();
+
+          row.insertCell(0).innerHTML = expense.id;
+          row.insertCell(1).innerHTML = expense.description;
+          row.insertCell(2).innerHTML = expense.amount;
+          row.insertCell(3).innerHTML = expense.date;
+
+          total += expense.amount; // 🔥 aqui soma
+        });
+
+         // cria linha do footer
+        let rowF = tableFoot.insertRow();
+
+        rowF.insertCell(0).innerHTML = "";
+        rowF.insertCell(1).innerHTML = "<strong>Total</strong>";
+        rowF.insertCell(2).innerHTML = `<strong>${total}</strong>`;
+        rowF.insertCell(3).innerHTML = "";
+      }
+
+      fetch("https://localhost:7173/api/Expenses")
+        .then((response) => response.json())
+        .then((data) => loadTableData(data))
+        .catch((error) => {
+          console.log("error: ", error)
+        });
+    </script>
+  </body>
+</html>
